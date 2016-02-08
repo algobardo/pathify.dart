@@ -32,3 +32,8 @@ pub run pathify <root> back
 ```
 
 to revert the original pubspecs when needed, e.g. before committing.
+
+# Activating globally 
+```
+pub global activate -sgit https://github.com/algobardo/dart_pathify.git
+```
