@@ -49,7 +49,7 @@ void main(List<String> args) {
       if (deps != null) {
         for (String key in deps.keys) {
           if (processedPackageResolver[key] != null) {
-            deps[key] = {"path": processedPackageResolver[key]};
+            deps[key] = {"path": path.relative(processedPackageResolver[key], from: processedPackageResolver[name])};
           }
         }
       }
