@@ -31,17 +31,13 @@ void main(List<String> args) {
       processedPackagePubspec[doc["name"]] = doc;
       processedPackageResolver[doc["name"]] = path.dirname(pubspec);
 
-      try {
-        JSON.decode(fileContent); // being in json instead of yaml is a good sign that it is already pathified
-        File dest = new File(path.join(path.dirname(pubspec), "pubspec.yaml.orig"));
-        if(dest.existsSync())
-          throw new Exception("existing");
+      File dest = new File(path.join(path.dirname(pubspec), "pubspec.yaml.orig"));
+      if (dest.existsSync()) {
+        print(" -- Skipped $pubspec, because already pathified");
+      }
+      else {
         new File(path.join(path.dirname(pubspec), "pubspec.yaml.orig")).writeAsStringSync(fileContent);
       }
-      catch(e) {
-        print(" -- Skipped $pubspec, because probably already pathified");
-      }
-
     }
 
     print("- Overwriting pubspecs");
