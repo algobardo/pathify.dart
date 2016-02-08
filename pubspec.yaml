@@ -1,4 +1,5 @@
 name: pathify
+version: 0.1
 description: Make Dart dependencies live
 dependencies:
   ansicolor: ">=0.0.9 <0.1.0"
