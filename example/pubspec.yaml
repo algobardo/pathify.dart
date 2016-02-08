@@ -1,0 +1,6 @@
+name: test
+dependencies:
+  pathify:
+    git:
+      url: http://www.google.it/something.git
+      ref: ref
