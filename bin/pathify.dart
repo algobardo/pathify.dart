@@ -22,6 +22,7 @@ void main(List<String> args) {
   if(args[1] == "forth") {
     JsonEncoder je = new JsonEncoder.withIndent("  ");
 
+    Map<String, String> processedPackageNamer = new Map();
     Map<String, String> processedPackageResolver = new Map();
     Map<String, Map> processedPackagePubspec = new Map();
 
@@ -30,6 +31,7 @@ void main(List<String> args) {
       Map doc = JSON.decode(JSON.encode(yaml.loadYaml(fileContent)));
       processedPackagePubspec[doc["name"]] = doc;
       processedPackageResolver[doc["name"]] = path.dirname(pubspec);
+      processedPackageNamer[pubspec] = doc["name"];
 
       File dest = new File(path.join(path.dirname(pubspec), "pubspec.yaml.orig"));
       if (dest.existsSync()) {
@@ -42,7 +44,8 @@ void main(List<String> args) {
 
     print("- Overwriting pubspecs");
 
-    for (String name in processedPackagePubspec.keys) {
+    for (String pubspec in packages) {
+      String name = processedPackageNamer[pubspec];
       print("Overwriting pubspec in ${processedPackageResolver[name]}");
       Map doc = processedPackagePubspec[name];
       Map deps = doc["dependencies"];
@@ -54,7 +57,7 @@ void main(List<String> args) {
         }
       }
 
-      new File(path.join(processedPackageResolver[name], "pubspec.yaml")).writeAsStringSync(je.convert(doc));
+      new File(pubspec).writeAsStringSync(je.convert(doc));
     }
   }
   else {
