@@ -46,7 +46,7 @@ void main(List<String> args) {
 
     for (String pubspec in packages) {
       String name = processedPackageNamer[pubspec];
-      print("Overwriting pubspec in ${processedPackageResolver[name]}");
+      print("Overwriting pubspec in ${path.dirname(pubspec)}");
       Map doc = processedPackagePubspec[name];
       Map deps = doc["dependencies"];
       if (deps != null) {
