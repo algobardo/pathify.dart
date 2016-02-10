@@ -64,7 +64,9 @@ void main(List<String> args) {
     for (String pubspec in packages) {
       print("Reverting pubspec in ${path.dirname(pubspec)}");
       String orig = path.join(path.dirname(pubspec), "pubspec.yaml.orig");
-      new File(orig).renameSync(pubspec);
+      var origFile = new File(orig);
+      if(origFile.exists)
+        origFile.renameSync(pubspec);
     }
   }
 
