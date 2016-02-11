@@ -29,6 +29,8 @@ void main(List<String> args) {
     for (String pubspec in packages) {
       String fileContent = new File(pubspec).readAsStringSync();
       Map doc = JSON.decode(JSON.encode(yaml.loadYaml(fileContent)));
+      if(processedPackagePubspec[doc["name"]] != null) 
+        print("WARNING: duplicate entry ${doc["name"]}");
       processedPackagePubspec[doc["name"]] = doc;
       processedPackageResolver[doc["name"]] = path.dirname(pubspec);
       processedPackageNamer[pubspec] = doc["name"];
