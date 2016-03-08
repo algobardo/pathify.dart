@@ -9,13 +9,22 @@ import "package:ansicolor/ansicolor.dart";
 
 void main(List<String> args) {
   if (args.length < 2 || (args[1] != "forth" && args[1] != "back")) {
-    print("Usage: pathify <root> direction \n direction: forth | back");
+    print("Usage: pathify <root> <direction> \n direction: forth | back");
     exit(-1);
+  }
+
+  print("- Loading exclude file");
+  List<String> ignores = [];
+  try {
+    ignores = new File(path.join(args.first, ".pathifygnore")).readAsStringSync().split("\n").map((s) => s.trim());
+  }
+  catch(e, stacktrace) {
+    print("  - Unable to find configuration file");
   }
 
   print("- Collecting packages and dependencies");
 
-  List<String> packages = listPackages(args.first);
+  List<String> packages = listPackages(args.first, ignores);
 
   print("- Found ${packages.join(",")}");
 
@@ -76,8 +85,9 @@ void main(List<String> args) {
 }
 
 
-List<String> listPackages(String root) =>
+List<String> listPackages(String root, [List<String> ignores = const []]) =>
   new Directory(root)
       .listSync(recursive: true, followLinks: false)
-      .where((FileSystemEntity f) => f is File && path.basename(f.path) == "pubspec.yaml")
+      .where((FileSystemEntity f) => f is File && path.basename(f.path) == "pubspec.yaml" && !ignores.map((String ptn) => ptn.matchAsPrefix(f.path) != null).contains(true) )
       .map((File f) => f.path);
+
