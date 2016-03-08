@@ -88,6 +88,6 @@ void main(List<String> args) {
 List<String> listPackages(String root, [List<String> ignores = const []]) =>
   new Directory(root)
       .listSync(recursive: true, followLinks: false)
-      .where((FileSystemEntity f) => f is File && path.basename(f.path) == "pubspec.yaml" && !ignores.map((String ptn) => ptn.matchAsPrefix(f.path) != null).contains(true) )
+      .where((FileSystemEntity f) => f is File && path.basename(f.path) == "pubspec.yaml" && !ignores.map((String ptn) => ptn.matchAsPrefix(path.relative(f.path, from: root)) != null).contains(true) )
       .map((File f) => f.path);
 
