@@ -35,5 +35,5 @@ to revert the original pubspecs when needed, e.g. before committing.
 
 # Activating globally 
 ```
-pub global activate -sgit https://github.com/algobardo/dart_pathify.git
+pub global activate -sgit https://github.com/algobardo/pathify.dart.git
 ```
