@@ -1,7 +1,7 @@
 # pathify
 
 This script allow to easily develop mutually dependent packages, using their live working directories on the file-system.
-This seems to be help IntelliJ to handle refactoring.
+This seems to allow IntelliJ to handle refactoring better than ```dependency_overrides```.
 
 # Usage
 
