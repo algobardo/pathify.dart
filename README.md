@@ -23,7 +23,7 @@ is changed into
 name:
   path: <path>
 ```
-if the package ```name``` is found in root.
+if the package ```name``` is found in one of the sub-directories of ```<root>```.
 
 Execute
 
