@@ -28,7 +28,7 @@ if the package ```name``` is found in root.
 Execute
 
 ```
-pub run pathify <root> back
+pathify <root> back
 ```
 
 to revert the original pubspecs when needed, e.g. before committing.
